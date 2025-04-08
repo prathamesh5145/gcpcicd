@@ -8,4 +8,4 @@ steps:
     args: ['push', 'gcr.io/cicd-456206/simple-web-page:$COMMIT_SHA']
 
 options:
-  logsBucket: gs://cicdgcpraymond
+  logging: CLOUD_LOGGING_ONLY
