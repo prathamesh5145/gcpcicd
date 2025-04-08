@@ -1,0 +1,8 @@
+steps:
+  # Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/cicd-456206/simple-web-page:$COMMIT_SHA', '.']
+
+  # Step 2: Push the Docker image to Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/cicd-456206/simple-web-page:$COMMIT_SHA']
