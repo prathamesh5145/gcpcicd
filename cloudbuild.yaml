@@ -1,11 +1,37 @@
 steps:
-  # Step 1: Build the Docker image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/cicd-456206/simple-web-page:$COMMIT_SHA', '.']
 
-  # Step 2: Push the Docker image to Google Container Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/cicd-456206/simple-web-page:$COMMIT_SHA']
+  # Install dependencies
 
+  - name: 'node:18'
+
+    entrypoint: 'npm'
+
+    args: ['install']
+ 
+  # Build the project
+
+  - name: 'node:18'
+
+    entrypoint: 'npm'
+
+    args: ['run', 'build']
+ 
+  # Deploy to GCS
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+
+    args: ['-m', 'rsync', '-r', '-c', '-d', 'build/', 'gs://raymond-reward-ai-dev-frontend']
+ 
 options:
+
   logging: CLOUD_LOGGING_ONLY
+ 
+artifacts:
+
+  objects:
+
+    location: gs://reward-ai-portal-frontend-logs
+
+    paths: ['build/**']
+ 
+ 
