@@ -30,7 +30,7 @@ artifacts:
 
   objects:
 
-    location: gs://reward-ai-portal-frontend-logs
+    location: gs://reward-ai-portal-frontend-logs1
 
     paths: ['build/**']
  
